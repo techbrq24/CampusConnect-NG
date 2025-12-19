@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CampusConnect NG | Sign Up</title>
+  <title>Create Account | CampusConnect NG</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -17,46 +17,32 @@
     }
 
     .signup-container {
-      background: #ffffff;
-      padding: 35px 25px;
+      background: #fff;
+      padding: 40px 30px;
       border-radius: 10px;
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
       width: 100%;
-      max-width: 450px;
-    }
-
-    .logo {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .logo img {
-      width: 70px;
+      max-width: 500px;
     }
 
     h2 {
       text-align: center;
       color: #0077b6;
-margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
-    form label {
+    label {
       display: block;
       margin-top: 15px;
-      font-size: 14px;
-      color: #333;
+      margin-bottom: 5px;
+      font-weight: 500;
     }
 
-    input {
+    input[type="text"], input[type="email"], input[type="password"], input[type="file"], input[type="tel"] {
       width: 100%;
       padding: 12px;
-      margin-top: 5px;
       border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    input[type="file"] {
-      padding: 10px;
+border-radius: 6px;
     }
 
     button {
@@ -66,81 +52,53 @@ margin-bottom: 20px;
       width: 100%;
       border: none;
       border-radius: 6px;
-      margin-top: 20px;
+      margin-top: 25px;
       cursor: pointer;
       font-size: 16px;
     }
 
-    .notice {
+    .note {
       font-size: 13px;
-      color: #666;
-      margin-top: 15px;
-      line-height: 1.4;
-      text-align: center;
-    }
-
-    .links {
-      margin-top: 15px;
-      text-align: center;
-      font-size: 14px;
-    }
-
-    .links a {
-      text-decoration: none;
-      color: #0077b6;
-    }
-
-    .links a:hover {
-      text-decoration: underline;
+      color: #555;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
   <div class="signup-container">
-    <div class="logo">
-      <img src="https://i.ibb.co/j9ZddxDG/Campus-Connect-NG-20251219-123708.jpg" alt="CampusConnect NG">
-    </div>
     <h2>Create Your Account</h2>
     <form>
-      <label>First Name:</label>
-      <input type="text" required>
+      <label for="first-name">First Name:</label>
+      <input type="text" id="first-name" required>
 
-      <label>Last Name:</label>
-<input type="text" required>
+      <label for="last-name">Last Name:</label>
+      <input type="text" id="last-name" required>
 
-      <label>Username (optional):</label>
-      <input type="text" placeholder="Leave blank to use your first name">
+      <label for="username">Username (optional):</label>
+      <input type="text" id="username" placeholder="e.g. campusking_01">
 
-      <label>Email Address:</label>
-      <input type="email" required>
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" required>
 
-      <label>Phone Number:</label>
-      <input type="text" required>
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" required>
 
-      <label>Create Password:</label>
-      <input type="password" required>
+      <label for="password">Create Password:</label>
+      <input type="password" id="password" required>
 
-      <label>Re-enter Password:</label>
-      <input type="password" required>
+      <label for="confirm-password">Re-enter Password:</label>
+      <input type="password" id="confirm-password" required>
 
-      <label>Upload Student ID / NIN Card (for verification):</label>
-      <input type="file" accept="image/*" required>
+      <label for="id-card">Upload Student ID/NIN Card:</label>
+<input type="file" id="id-card" accept="image/*" required>
+
+      <p class="note">Note: Your ID is used only for verification and is not visible to other users.</p>
+      <p class="note">If you provide a username, it will be used as your display name. If not, your first name will be used.</p>
 
       <button type="submit">Sign Up</button>
     </form>
-
-    <div class="notice">
-      🔒 Your ID is only used for verification by CampusConnect NG Admin and will not be shared.<br>
-      ✅ If you provide a username, it will be used as your display name. Otherwise, your first name will be used.<br>
-      ⏳ Your account will remain pending until approved.
-    </div>
-
-    <div class="links">
-      <a href="login.html">Already have an account? Login</a>
-    </div>
   </div>
 
 </body>
 </html>
-
