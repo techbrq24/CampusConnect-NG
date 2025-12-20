@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Announcements | CampusConnect NG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #f0f2f5;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: #ffffff;
+      border-right: 1px solid #ddd;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      color: #0077b6;
+      margin-bottom: 30px;
+      border: 2px solid #0077b6;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .sidebar a {
+      display: block;
+      margin: 15px 0;
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .sidebar a:hover {
+      color: #0077b6;
+    }
+
+    .main {
+      flex: 1;
+      padding: 40px 30px;
+    }
+
+    .main h1 {
+      color: #0077b6;
+margin-bottom: 20px;
+    }
+
+    .announcement {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .announcement h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .announcement p {
+      font-size: 15px;
+      color: #555;
+    }
+
+    .timestamp {
+      font-size: 13px;
+      color: gray;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>CampusConnect NG</h2>
+    <a href="dashboard.html">🏠 Dashboard</a>
+    <a href="news-feeds.html">📰 News Feeds</a>
+    <a href="marketplace.html">🛍️ Marketplace</a>
+    <a href="messages.html">💬 Messages</a>
+    <a href="announcement.html">📢 Announcements</a>
+    <a href="#">⚙️ Settings</a>
+    <a href="#">🤝 Referral</a>
+    <a href="#">💰 Earnings</a>
+  </div>
+
+  <div class="main">
+    <h1>📢 Announcements</h1>
+
+    <div class="announcement">
+      <h3>🎓 Welcome Back to Campus!</h3>
+      <p>We hope you had a restful break. Stay tuned for upcoming events, deals on student essentials, and updates from the CampusConnect NG marketplace.</p>
+      <div class="timestamp">Posted: Dec 20, 2025</div>
+    </div>
+
+    <div class="announcement">
+      <h3>🛠️ Maintenance Notice</h3>
+<p>The platform will be undergoing scheduled maintenance this Saturday from 2 AM – 4 AM. Please plan accordingly.</p>
+      <div class="timestamp">Posted: Dec 18, 2025</div>
+    </div>
+
+    <div class="announcement">
+      <h3>💡 Tip of the Week</h3>
+      <p>Want to sell faster? Use clear images, short descriptions, and reply quickly to messages!</p>
+      <div class="timestamp">Posted: Dec 17, 2025</div>
+    </div>
+  </div>
+
+</body>
+</html>
