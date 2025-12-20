@@ -4,281 +4,189 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CampusConnect NG | Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Reset and base */
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f0f4f8;
-      color: #222;
       display: flex;
       min-height: 100vh;
-      overflow-x: hidden;
+      background-color: #f4f6f8;
     }
 
-    /* Sidebar styles */
-    #sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 260px;
-      height: 100vh;
-      background: #fff;
+    .sidebar {
+      width: 250px;
+      background-color: #ffffff;
       border-right: 2px solid #0077b6;
-      box-shadow: 2px 0 8px rgba(0,0,0,0.1);
-      padding: 20px 15px;
-      display: flex;
-      flex-direction: column;
+      padding: 20px;
       transition: transform 0.3s ease;
-      z-index: 1000;
     }
 
-    #sidebar.closed {
+    .sidebar.collapsed {
       transform: translateX(-100%);
     }
 
-    #sidebar .brand {
-      font-weight: 700;
-font-size: 1.6rem;
-      color: #0077b6;
+    .sidebar h2 {
       background: #fff;
       border: 2px solid #0077b6;
-      border-radius: 8px;
-      padding: 10px 15px;
-      text-align: center;
-      margin-bottom: 30px;
-      user-select: none;
-    }
-
-    #sidebar nav a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
       color: #0077b6;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 12px 10px;
-      margin-bottom: 10px;
-      border-radius: 6px;
-      transition: background-color 0.2s ease, color 0.2s ease;
-      cursor: pointer;
-      user-select: none;
+      padding: 10px;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      font-size: 18px;
     }
 
-    #sidebar nav a:hover {
-      background-color: #0077b6;
-      color: #fff;
+    .sidebar a {
+      display: block;
+      margin: 15px 0;
+      color: #333;
+text-decoration: none;
+      font-size: 16px;
     }
 
-    /* Main content area */
-    #content {
-      margin-left: 260px;
-      flex: 1;
-      padding: 30px 40px;
-      transition: margin-left 0.3s ease;
+    .sidebar a:hover {
+      color: #0077b6;
     }
 
-    #sidebar.closed + #content {
-      margin-left: 0;
-    }
-
-    /* Toggle button */
-    #toggle-btn {
-      position: fixed;
+    .toggle-btn {
+      position: absolute;
       top: 20px;
       left: 20px;
-      background: #0077b6;
-      border: none;
+      background-color: #0077b6;
       color: white;
-      font-size: 1.5rem;
+      border: none;
       padding: 8px 12px;
-      border-radius: 6px;
+      border-radius: 5px;
       cursor: pointer;
-      z-index: 1100;
-      transition: background-color 0.3s ease;
-      user-select: none;
-    }
-#toggle-btn:hover {
-      background-color: #005f87;
+      z-index: 1000;
     }
 
-    /* Welcome post */
-    .post {
-      background: #fff;
-      border-radius: 15px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-      max-width: 700px;
-      margin: 20px auto;
-      padding: 25px 30px;
-      font-size: 1rem;
-      color: #333;
-      animation: fadeIn 0.6s ease;
+    .main-content {
+      flex: 1;
+      padding: 40px 20px 20px 20px;
     }
 
-    .post .post-header {
-      font-weight: 700;
-      font-size: 1.3rem;
+    .welcome {
+      font-size: 22px;
+      margin-bottom: 25px;
       color: #0077b6;
-      margin-bottom: 15px;
     }
-
-    .post .post-text {
-      margin-bottom: 20px;
-      line-height: 1.5;
-      font-size: 1.1rem;
+    .post {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
     }
 
     .post img {
       width: 100%;
-      max-height: 350px;
-      object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-      user-select: none;
+      max-height: 300px;
+      border-radius: 8px;
+      margin-top: 15px;
     }
 
-    /* Fade in animation */
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(10px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    /* Welcome animation overlay */
-    .welcome-animation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 119, 182, 0.9);
+    .reactions {
+      margin-top: 15px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      animation: fadeOut 4s ease forwards;
-pointer-events: none;
-      user-select: none;
+      gap: 15px;
+      font-size: 18px;
     }
 
-    .welcome-text {
-      font-size: 5rem;
-      font-weight: 900;
+    .comment-section {
+      margin-top: 20px;
+    }
+
+    .comment-section input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .new-post {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+
+    .new-post textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      resize: vertical;
+    }
+
+    .new-post input[type="file"] {
+      margin-top: 10px;
+    }
+
+    .new-post button {
+      margin-top: 15px;
+      padding: 10px 15px;
+      background-color: #0077b6;
       color: #fff;
-      animation: popIn 1s ease forwards;
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-    }
-
-    @keyframes popIn {
-      0% {
-        transform: scale(0.5);
-        opacity: 0;
-      }
-      70% {
-        transform: scale(1.2);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    @keyframes fadeOut {
-      0% {
-        opacity: 1;
-      }
-      80% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      #sidebar {
-        transform: translateX(-100%);
-      }
-
-      #sidebar.open {
-        transform: translateX(0);
-      }
-
-      #content {
-        margin-left: 0 !important;
-        padding: 20px;
-      }
-
-      #toggle-btn {
-        left: 15px;
-        top: 15px;
-      }
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
+<button class="toggle-btn" onclick="toggleSidebar()">☰</button>
 
-  <!-- Welcome animation -->
-  <div id="welcome-animation" class="welcome-animation">
-    <div class="welcome-text">Welcome 🎉</div>
+  <div class="sidebar" id="sidebar">
+    <h2>CampusConnect NG</h2>
+    <a href="#">🏠 Dashboard</a>
+    <a href="#">📰 News Feeds</a>
+    <a href="#">🛒 Marketplace</a>
+    <a href="#">💬 Messages</a>
+    <a href="#">📢 Announcement</a>
+    <a href="#">⚙️ Settings</a>
+    <a href="#">👥 Referral</a>
+    <a href="#">💰 Earnings</a>
   </div>
 
-  <!-- Sidebar -->
-  <button id="toggle-btn" aria-label="Toggle Navigation Menu">☰</button>
-<aside id="sidebar" class="closed" aria-label="Sidebar Navigation">
-    <div class="brand" tabindex="0">CampusConnect NG</div>
-    <nav>
-      <a href="#" tabindex="0">🏠 News feeds</a>
-      <a href="#" tabindex="0">📊 Dashboard</a>
-      <a href="#" tabindex="0">🛒 Marketplace</a>
-      <a href="#" tabindex="0">💬 Messages</a>
-      <a href="#" tabindex="0">📢 Announcement</a>
-      <a href="#" tabindex="0">⚙️ Settings</a>
-      <a href="#" tabindex="0">🔗 Referral</a>
-      <a href="#" tabindex="0">💰 Earnings</a>
-    </nav>
-  </aside>
+  <div class="main-content">
+    <div class="welcome">Welcome @Username 👋</div>
 
-  <!-- Main content -->
-  <main id="content" tabindex="0">
-    <section class="post" aria-label="Welcome Post">
-      <div class="post-header">Welcome @Username 🎉</div>
-      <div class="post-text">
-        Welcome to CampusConnect NG Student mart! 🎉 Drop a hello and introduce yourself 😊
+    <div class="new-post">
+      <h3>Create a Post</h3>
+      <textarea rows="3" placeholder="What's on your mind?"></textarea>
+      <input type="file" accept="image/*,video/*" />
+      <button>Post</button>
+    </div>
+    <div class="post">
+      <h3>Welcome to CampusConnect NG Student Mart! 🎉</h3>
+      <p>Drop a hello and introduce yourself 😊</p>
+      <img src="https://i.ibb.co/qYgKsvCP/Screenshot-20251219-185926.jpg" alt="Welcome Image" />
+      
+      <div class="reactions">
+        👍 Like &nbsp; 👎 Dislike &nbsp; 💬 Comment
       </div>
-      <img src="https://i.ibb.co/qYgKsvCP/Screenshot-20251219-185926.jpg" alt="Welcome to CampusConnect NG" />
-    </section>
-  </main>
+
+      <div class="comment-section">
+        <input type="text" placeholder="Write a comment..." />
+      </div>
+    </div>
+
+  </div>
 
   <script>
-    // Sidebar toggle functionality
-    const toggleBtn = document.getElementById('toggle-btn');
-    const sidebar = document.getElementById('sidebar');
-
-    toggleBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('closed');
-      // For mobile: toggle open class
-if(window.innerWidth <= 768){
-        sidebar.classList.toggle('open');
-      }
-    });
-
-    // Welcome animation auto hide
-    window.addEventListener('load', () => {
-      const welcome = document.getElementById('welcome-animation');
-      setTimeout(() => {
-        welcome.style.display = 'none';
-      }, 4000);
-    });
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('active');
+    }
   </script>
-
 </body>
 </html>
