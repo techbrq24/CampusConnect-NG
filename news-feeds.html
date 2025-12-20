@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>News Feeds | CampusConnect NG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f1f5f9;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    h2 {
+      text-align: center;
+      color: #0077b6;
+      margin-bottom: 1rem;
+    }
+
+    .post-form {
+      background: #ffffff;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+    }
+
+    .post-form textarea {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 15px;
+      resize: none;
+    }
+
+    .post-form input[type="file"] {
+      margin: 10px 0;
+    }
+.post-form button {
+      background-color: #0077b6;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .post-form button:hover {
+      background-color: #005f94;
+    }
+
+    .feed {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .post {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.4s ease;
+    }
+
+    .post p {
+      font-size: 15px;
+      margin: 0;
+      color: #333;
+    }
+
+    .post img,
+    .post video {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .reactions, .comments {
+      margin-top: 10px;
+    }
+
+    .reactions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      margin-right: 10px;
+    }
+
+    .comment-box {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .comment-box input {
+      flex: 1;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .comment-box button {
+      padding: 8px 12px;
+      border: none;
+      background: #0077b6;
+color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .comment-list {
+      margin-top: 10px;
+      padding-left: 10px;
+    }
+
+    .comment-list p {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>📢 CampusConnect NG News Feeds</h2>
+
+    <div class="post-form">
+      <textarea id="postText" rows="3" placeholder="Share an update..."></textarea><br>
+      <input type="file" id="postMedia" accept="image/*,video/*"><br>
+      <button onclick="submitPost()">Post</button>
+    </div>
+
+    <div class="feed" id="feed">
+      <!-- Default Welcome Post -->
+      <div class="post">
+        <p><strong>👋 Welcome to CampusConnect NG Student mart! 🎉</strong><br>Drop a hello and introduce yourself 😊</p>
+        <img src="https://i.ibb.co/qYgKsvCP/Screenshot-20251219-185926.jpg" alt="Welcome post">
+        <div class="reactions">
+          <button onclick="alert('You liked this')">👍</button>
+          <button onclick="alert('You disliked this')">👎</button>
+        </div>
+        <div class="comments">
+          <div class="comment-box">
+<input type="text" placeholder="Add a comment..." onkeypress="if(event.key === 'Enter'){addComment(this)}">
+            <button onclick="addComment(this.previousElementSibling)">Send</button>
+          </div>
+          <div class="comment-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function submitPost() {
+      const text = document.getElementById('postText').value.trim();
+      const media = document.getElementById('postMedia').files[0];
+      const feed = document.getElementById('feed');
+
+      if (!text && !media) return;
+
+      const post = document.createElement('div');
+      post.className = 'post';
+
+      if (text) {
+        const content = document.createElement('p');
+        content.textContent = text;
+        post.appendChild(content);
+      }
+
+      if (media) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          let mediaElement;
+          if (media.type.startsWith('image/')) {
+            mediaElement = document.createElement('img');
+            mediaElement.src = e.target.result;
+          } else if (media.type.startsWith('video/')) {
+            mediaElement = document.createElement('video');
+            mediaElement.src = e.target.result;
+            mediaElement.controls = true;
+}
+          post.appendChild(mediaElement);
+          addExtras(post);
+          feed.prepend(post);
+        };
+        reader.readAsDataURL(media);
+      } else {
+        addExtras(post);
+        feed.prepend(post);
+      }
+
+      document.getElementById('postText').value = '';
+      document.getElementById('postMedia').value = '';
+    }
+
+    function addExtras(post) {
+      const reactions = document.createElement('div');
+      reactions.className = 'reactions';
+      reactions.innerHTML = `
+        <button onclick="alert('You liked this')">👍</button>
+        <button onclick="alert('You disliked this')">👎</button>
+      `;
+      post.appendChild(reactions);
+
+      const comments = document.createElement('div');
+      comments.className = 'comments';
+      comments.innerHTML = `
+        <div class="comment-box">
+          <input type="text" placeholder="Add a comment..." onkeypress="if(event.key === 'Enter'){addComment(this)}">
+          <button onclick="addComment(this.previousElementSibling)">Send</button>
+        </div>
+        <div class="comment-list"></div>
+      `;
+      post.appendChild(comments);
+    }
+
+    function addComment(input) {
+      const text = input.value.trim();
+      if (!text) return;
+const list = input.closest('.comments').querySelector('.comment-list');
+      const comment = document.createElement('p');
+      comment.textContent = text;
+      list.appendChild(comment);
+      input.value = '';
+    }
+  </script>
+
+</body>
+</html>
