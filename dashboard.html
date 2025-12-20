@@ -11,27 +11,27 @@
       padding: 0;
       box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
-    }
+}
 
     body {
       display: flex;
       min-height: 100vh;
       background-color: #f4f6f8;
-    }
+}
 
-    .sidebar {
+    nav.sidebar {
       width: 250px;
       background-color: #ffffff;
       border-right: 2px solid #0077b6;
       padding: 20px;
       transition: transform 0.3s ease;
-    }
+}
 
-    .sidebar.collapsed {
+    nav.sidebar.collapsed {
       transform: translateX(-100%);
-    }
+}
 
-    .sidebar h2 {
+    nav.sidebar h2 {
       background: #fff;
       border: 2px solid #0077b6;
       color: #0077b6;
@@ -40,21 +40,21 @@
       border-radius: 8px;
       margin-bottom: 30px;
       font-size: 18px;
-    }
+}
 
-    .sidebar a {
+    nav.sidebar a {
       display: block;
       margin: 15px 0;
       color: #333;
-text-decoration: none;
+      text-decoration: none;
       font-size: 16px;
-    }
+}
 
-    .sidebar a:hover {
+    nav.sidebar a:hover {
       color: #0077b6;
-    }
+}
 
-    .toggle-btn {
+.toggle-btn {
       position: absolute;
       top: 20px;
       left: 20px;
@@ -65,73 +65,77 @@ text-decoration: none;
       border-radius: 5px;
       cursor: pointer;
       z-index: 1000;
-    }
+}
 
-    .main-content {
+    main.main-content {
       flex: 1;
       padding: 40px 20px 20px 20px;
-    }
+}
 
-    .welcome {
-      font-size: 22px;
-      margin-bottom: 25px;
-      color: #0077b6;
-    }
-    .post {
+.welcome-banner {
+      background: linear-gradient(135deg, #0077b6, #00b4d8);
+      color: white;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 30px;
+      animation: fadeIn 0.8s ease-in-out;
+}
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px);}
+      to { opacity: 1; transform: translateY(0);}
+}
+
+.post,.new-post {
       background-color: #fff;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 3px 10px rgba(0,0,0,0.05);
       margin-bottom: 30px;
-    }
+}
 
-    .post img {
+.post img {
       width: 100%;
       max-height: 300px;
       border-radius: 8px;
       margin-top: 15px;
-    }
+}
 
-    .reactions {
+.reactions {
       margin-top: 15px;
       display: flex;
       gap: 15px;
       font-size: 18px;
-    }
+}
 
-    .comment-section {
+.comment-section {
       margin-top: 20px;
-    }
+}
 
-    .comment-section input {
+.comment-section input {
       width: 100%;
       padding: 10px;
       margin-top: 10px;
       border: 1px solid #ccc;
       border-radius: 6px;
-    }
+}
 
-    .new-post {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-      margin-bottom: 30px;
-    }
-
-    .new-post textarea {
+.new-post textarea {
       width: 100%;
       padding: 12px;
       border: 1px solid #ccc;
       border-radius: 6px;
       resize: vertical;
-    }
+}
 
-    .new-post input[type="file"] {
+.new-post input[type="file"] {
       margin-top: 10px;
-    }
+}
 
-    .new-post button {
+.new-post button {
       margin-top: 15px;
       padding: 10px 15px;
       background-color: #0077b6;
@@ -139,13 +143,26 @@ text-decoration: none;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-    }
+}
+
+    @media (max-width: 768px) {
+      nav.sidebar {
+        position: absolute;
+        height: 100%;
+        z-index: 999;
+}
+
+.toggle-btn {
+        top: 10px;
+        left: 10px;
+}
+}
   </style>
 </head>
 <body>
-<button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+  <button class="toggle-btn" onclick="toggleSidebar()" aria-label="Toggle sidebar">☰</button>
 
-  <div class="sidebar" id="sidebar">
+  <nav class="sidebar" id="sidebar">
     <h2>CampusConnect NG</h2>
     <a href="#">🏠 Dashboard</a>
     <a href="#">📰 News Feeds</a>
@@ -155,38 +172,41 @@ text-decoration: none;
     <a href="#">⚙️ Settings</a>
     <a href="#">👥 Referral</a>
     <a href="#">💰 Earnings</a>
-  </div>
+  </nav>
 
-  <div class="main-content">
-    <div class="welcome">Welcome @Username 👋</div>
+  <main class="main-content">
+    <header class="welcome-banner">
+      Welcome <span id="username">@Oluwashindara</span> 👋
+    </header>
 
-    <div class="new-post">
-      <h3>Create a Post</h3>
+    <section class="new-post">
+<h3>Create a Post</h3>
       <textarea rows="3" placeholder="What's on your mind?"></textarea>
-      <input type="file" accept="image/*,video/*" />
+      <input type="file" accept="image/ _,video/_ " />
       <button>Post</button>
-    </div>
-    <div class="post">
+    </section>
+
+    <section class="post">
       <h3>Welcome to CampusConnect NG Student Mart! 🎉</h3>
       <p>Drop a hello and introduce yourself 😊</p>
       <img src="https://i.ibb.co/qYgKsvCP/Screenshot-20251219-185926.jpg" alt="Welcome Image" />
-      
       <div class="reactions">
         👍 Like &nbsp; 👎 Dislike &nbsp; 💬 Comment
       </div>
-
       <div class="comment-section">
         <input type="text" placeholder="Write a comment..." />
       </div>
-    </div>
-
-  </div>
+    </section>
+  </main>
 
   <script>
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
-      sidebar.classList.toggle('active');
-    }
+      sidebar.classList.toggle('collapsed');
+}
+
+    // Example: dynamically set username
+    document.getElementById('username').textContent = '@JaneDoe';
   </script>
 </body>
 </html>
