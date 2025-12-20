@@ -4,213 +4,281 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CampusConnect NG | Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    /* Reset and base */
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #f5f7fa;
-      color: #333;
+      background-color: #f0f4f8;
+      color: #222;
       display: flex;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* Sidebar Navigation */
-    .sidebar {
-      width: 230px;
-      background-color: #ffffff;
-      border-right: 1px solid #e0e0e0;
-      padding: 20px;
+    /* Sidebar styles */
+    #sidebar {
       position: fixed;
+      top: 0;
+      left: 0;
+      width: 260px;
       height: 100vh;
-      overflow-y: auto;
-      transition: all 0.3s ease;
-    }
-
-    .sidebar h2 {
-      font-size: 18px;
-      color: #0077b6;
-      background-color: #fff;
-      border: 1px solid #0077b6;
-      padding: 8px 12px;
-      border-radius: 8px;
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-
-    .nav-links {
-display: flex;
+      background: #fff;
+      border-right: 2px solid #0077b6;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+      padding: 20px 15px;
+      display: flex;
       flex-direction: column;
-      gap: 15px;
+      transition: transform 0.3s ease;
+      z-index: 1000;
     }
 
-    .nav-links a {
-      text-decoration: none;
-      color: #333;
-      font-size: 15px;
+    #sidebar.closed {
+      transform: translateX(-100%);
+    }
+
+    #sidebar .brand {
+      font-weight: 700;
+font-size: 1.6rem;
+      color: #0077b6;
+      background: #fff;
+      border: 2px solid #0077b6;
+      border-radius: 8px;
+      padding: 10px 15px;
+      text-align: center;
+      margin-bottom: 30px;
+      user-select: none;
+    }
+
+    #sidebar nav a {
       display: flex;
       align-items: center;
-      gap: 10px;
-      transition: 0.2s;
-    }
-
-    .nav-links a:hover {
+      gap: 12px;
+      text-decoration: none;
       color: #0077b6;
-    }
-
-    /* Main Content */
-    .main-content {
-      margin-left: 230px;
-      padding: 30px;
-      flex: 1;
-    }
-
-    .welcome-section {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      margin-bottom: 20px;
-    }
-
-    .welcome-section h3 {
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 12px 10px;
       margin-bottom: 10px;
-      color: #0077b6;
+      border-radius: 6px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      cursor: pointer;
+      user-select: none;
     }
 
-    .welcome-section img {
-      width: 100%;
-      max-height: 250px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-top: 15px;
-    }
-    /* Post Box */
-    .post-box {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    .post-box textarea {
-      width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 14px;
-      resize: none;
-      margin-bottom: 10px;
-    }
-
-    .post-box input[type="file"] {
-      margin: 10px 0;
-    }
-
-    .post-box button {
+    #sidebar nav a:hover {
       background-color: #0077b6;
       color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
     }
 
-    /* Post Mockup */
+    /* Main content area */
+    #content {
+      margin-left: 260px;
+      flex: 1;
+      padding: 30px 40px;
+      transition: margin-left 0.3s ease;
+    }
+
+    #sidebar.closed + #content {
+      margin-left: 0;
+    }
+
+    /* Toggle button */
+    #toggle-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #0077b6;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      z-index: 1100;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+#toggle-btn:hover {
+      background-color: #005f87;
+    }
+
+    /* Welcome post */
     .post {
-      background-color: #fff;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 25px 30px;
+      font-size: 1rem;
+      color: #333;
+      animation: fadeIn 0.6s ease;
     }
 
     .post .post-header {
-      font-weight: 600;
-      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #0077b6;
+      margin-bottom: 15px;
+    }
+
+    .post .post-text {
+      margin-bottom: 20px;
+      line-height: 1.5;
+      font-size: 1.1rem;
     }
 
     .post img {
       width: 100%;
-      border-radius: 10px;
-      margin-top: 10px;
+      max-height: 350px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      user-select: none;
     }
 
-    .reactions {
+    /* Fade in animation */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Welcome animation overlay */
+    .welcome-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 119, 182, 0.9);
       display: flex;
-      gap: 15px;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-.comments {
-      margin-top: 10px;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: fadeOut 4s ease forwards;
+pointer-events: none;
+      user-select: none;
     }
 
-    .comments p {
-      background: #f0f0f0;
-      padding: 8px 12px;
-      border-radius: 6px;
-      margin-bottom: 5px;
+    .welcome-text {
+      font-size: 5rem;
+      font-weight: 900;
+      color: #fff;
+      animation: popIn 1s ease forwards;
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+
+    @keyframes popIn {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      70% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #sidebar {
+        transform: translateX(-100%);
+      }
+
+      #sidebar.open {
+        transform: translateX(0);
+      }
+
+      #content {
+        margin-left: 0 !important;
+        padding: 20px;
+      }
+
+      #toggle-btn {
+        left: 15px;
+        top: 15px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="sidebar">
-    <h2>CampusConnect NG</h2>
-    <div class="nav-links">
-      <a href="#">🏠 Dashboard</a>
-      <a href="#">📰 News Feeds</a>
-      <a href="#">🛍️ Marketplace</a>
-      <a href="#">💬 Messages</a>
-      <a href="#">📢 Announcement</a>
-      <a href="#">⚙️ Settings</a>
-      <a href="#">🤝 Referral</a>
-      <a href="#">💰 Earnings</a>
-    </div>
+  <!-- Welcome animation -->
+  <div id="welcome-animation" class="welcome-animation">
+    <div class="welcome-text">Welcome 🎉</div>
   </div>
 
-  <div class="main-content">
-    <div class="welcome-section">
-      <h3>Welcome @Username 👋</h3>
-      <p>Welcome to CampusConnect NG Student Mart! 🎉 Drop a hello and introduce yourself 😊</p>
-      <img src="https://i.ibb.co/qYgKsvCP/Screenshot-20251219-185926.jpg" alt="Welcome Image" />
-    </div>
+  <!-- Sidebar -->
+  <button id="toggle-btn" aria-label="Toggle Navigation Menu">☰</button>
+<aside id="sidebar" class="closed" aria-label="Sidebar Navigation">
+    <div class="brand" tabindex="0">CampusConnect NG</div>
+    <nav>
+      <a href="#" tabindex="0">🏠 News feeds</a>
+      <a href="#" tabindex="0">📊 Dashboard</a>
+      <a href="#" tabindex="0">🛒 Marketplace</a>
+      <a href="#" tabindex="0">💬 Messages</a>
+      <a href="#" tabindex="0">📢 Announcement</a>
+      <a href="#" tabindex="0">⚙️ Settings</a>
+      <a href="#" tabindex="0">🔗 Referral</a>
+      <a href="#" tabindex="0">💰 Earnings</a>
+    </nav>
+  </aside>
 
-    <div class="post-box">
-      <h4>Create a Post</h4>
-      <textarea rows="3" placeholder="What's on your mind?"></textarea>
-      <input type="file" accept="image/*,video/*">
-      <br/>
-      <button>Post</button>
-    </div>
-    <!-- Sample Post -->
-    <div class="post">
-      <div class="post-header">@Username • 2h ago</div>
-      <div class="post-body">
-        Just joined CampusConnect NG and it feels awesome already! 💙🔥
-        <img src="https://i.ibb.co/qYgKsvCP/Screenshot-20251219-185926.jpg" alt="Welcome" />
+  <!-- Main content -->
+  <main id="content" tabindex="0">
+    <section class="post" aria-label="Welcome Post">
+      <div class="post-header">Welcome @Username 🎉</div>
+      <div class="post-text">
+        Welcome to CampusConnect NG Student mart! 🎉 Drop a hello and introduce yourself 😊
       </div>
-      <div class="reactions">
-        <span>👍 24</span>
-        <span>👎 2</span>
-        <span>💬 6 comments</span>
-      </div>
-      <div class="comments">
-        <p><strong>@Peace:</strong> Welcome onboard 🤗</p>
-        <p><strong>@Jay:</strong> Big W! 🔥</p>
-        <p><strong>@Muna:</strong> You're gonna love it here! 🎉</p>
-      </div>
-    </div>
+      <img src="https://i.ibb.co/qYgKsvCP/Screenshot-20251219-185926.jpg" alt="Welcome to CampusConnect NG" />
+    </section>
+  </main>
 
-  </div> <!-- End main-content -->
+  <script>
+    // Sidebar toggle functionality
+    const toggleBtn = document.getElementById('toggle-btn');
+    const sidebar = document.getElementById('sidebar');
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('closed');
+      // For mobile: toggle open class
+if(window.innerWidth <= 768){
+        sidebar.classList.toggle('open');
+      }
+    });
+
+    // Welcome animation auto hide
+    window.addEventListener('load', () => {
+      const welcome = document.getElementById('welcome-animation');
+      setTimeout(() => {
+        welcome.style.display = 'none';
+      }, 4000);
+    });
+  </script>
+
 </body>
 </html>
-
