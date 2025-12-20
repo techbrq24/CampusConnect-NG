@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Referrals | CampusConnect NG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f2f4f8;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #0077b6;
+      color: white;
+      padding: 30px 20px;
+      height: 100vh;
+    }
+
+    .sidebar h2 {
+      font-size: 18px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 10px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .main {
+      flex: 1;
+      padding: 40px 30px;
+      background: #fff;
+    }
+
+    h1 {
+      color: #0077b6;
+      font-size: 24px;
+      margin-bottom: 20px;
+}
+
+    .referral-box {
+      background: #e6f4ff;
+      border-left: 5px solid #0077b6;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .referral-box p {
+      margin: 0 0 10px;
+      font-size: 15px;
+    }
+
+    .referral-link {
+      background: white;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .referral-link input {
+      border: none;
+      width: 100%;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .referral-link button {
+      background: #0077b6;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .stats {
+      display: flex;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .stat-card {
+      flex: 1;
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    .stat-card h2 {
+      font-size: 30px;
+      margin-bottom: 5px;
+      color: #0077b6;
+    }
+
+    .stat-card p {
+      margin: 0;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>CampusConnect NG</h2>
+<a href="dashboard.html">🏠 Dashboard</a>
+    <a href="news-feeds.html">📰 News Feeds</a>
+    <a href="marketplace.html">🛒 Marketplace</a>
+    <a href="messages.html">💬 Messages</a>
+    <a href="announcement.html">📢 Announcements</a>
+    <a href="referrals.html">🎁 Referrals</a>
+    <a href="settings.html">⚙️ Settings</a>
+  </div>
+
+  <div class="main">
+    <h1>🎁 Referral Program</h1>
+
+    <div class="referral-box">
+      <p>Share your unique referral link:</p>
+      <div class="referral-link">
+        <input type="text" value="https://campusconnect.ng/ref/your-username" id="refLink" readonly>
+        <button onclick="copyReferral()">Copy</button>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <h2 id="refCount">0</h2>
+        <p>People Referred</p>
+      </div>
+      <div class="stat-card">
+        <h2 id="refEarnings">₦0</h2>
+        <p>Total Earnings</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Example dynamic stats
+    const totalReferrals = 5; // Replace with backend value
+    document.getElementById('refCount').innerText = totalReferrals;
+    document.getElementById('refEarnings').innerText = '₦' + (totalReferrals * 100);
+
+    function copyReferral() {
+      const copyText = document.getElementById("refLink");
+copyText.select();
+      copyText.setSelectionRange(0, 99999); 
+      document.execCommand("copy");
+      alert("Referral link copied!");
+    }
+  </script>
+
+</body>
+</html>
