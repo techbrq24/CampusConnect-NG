@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Settings | CampusConnect NG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f2f4f8;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #0077b6;
+      color: white;
+      padding: 30px 20px;
+      height: 100vh;
+    }
+
+    .sidebar h2 {
+      font-size: 18px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 10px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .main {
+      flex: 1;
+      padding: 40px 30px;
+      background: #fff;
+    }
+
+    h1 {
+color: #0077b6;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .settings-form {
+      max-width: 600px;
+      margin-top: 20px;
+    }
+
+    .settings-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .settings-form input[type="text"],
+    .settings-form input[type="email"],
+    .settings-form input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .settings-form button {
+      background-color: #0077b6;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .toggle {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .toggle input {
+      margin-right: 10px;
+    }
+
+    .toggle label {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>CampusConnect NG</h2>
+    <a href="dashboard.html">🏠 Dashboard</a>
+    <a href="news-feeds.html">📰 News Feeds</a>
+    <a href="marketplace.html">🛒 Marketplace</a>
+    <a href="messages.html">💬 Messages</a>
+    <a href="announcement.html">📢 Announcements</a>
+    <a href="referrals.html">🎁 Referrals</a>
+<a href="settings.html">⚙️ Settings</a>
+  </div>
+
+  <div class="main">
+    <h1>⚙️ Account Settings</h1>
+    <form class="settings-form">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="John Doe">
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="you@example.com">
+
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" placeholder="+234...">
+
+      <label for="password">Change Password</label>
+      <input type="password" id="password" placeholder="••••••••">
+
+      <div class="toggle">
+        <input type="checkbox" id="darkMode">
+        <label for="darkMode">Enable Dark Mode (Coming Soon)</label>
+      </div>
+
+      <button type="submit">Save Settings</button>
+    </form>
+  </div>
+
+</body>
+</html>
