@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Marketplace | CampusConnect NG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f1f5f9;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      color: #0077b6;
+      margin-bottom: 15px;
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+
+    .search-bar input {
+      width: 70%;
+      padding: 10px 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .search-bar button {
+background: #0077b6;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .search-bar button:hover {
+      background: #005f94;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .categories button {
+      background: white;
+      border: 1px solid #0077b6;
+      color: #0077b6;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .categories button:hover {
+      background: #0077b6;
+      color: white;
+    }
+
+    .products {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 12px 15px;
+    }
+.product-info h4 {
+      font-size: 16px;
+      color: #0077b6;
+      margin-bottom: 6px;
+    }
+
+    .product-info p {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .product-info .price {
+      font-weight: 700;
+      color: #005f8a;
+      margin-bottom: 8px;
+    }
+
+    .product-info button {
+      background: #0077b6;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 8px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .product-info button:hover {
+      background: #005f94;
+    }
+
+    .create-listing {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .create-listing button {
+      background: #0077b6;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .create-listing button:hover {
+      background: #005f94;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h2>🛍️ CampusConnect NG Marketplace</h2>
+
+  <div class="create-listing">
+    <button onclick="alert('Create Listing UI Coming Soon!')">+ Create New Listing</button>
+  </div>
+
+  <div class="search-bar">
+<input type="text" id="searchInput" placeholder="Search products...">
+    <button onclick="filterProducts()">Search</button>
+  </div>
+
+  <div class="categories">
+    <button onclick="filterByCategory('All')">All</button>
+    <button onclick="filterByCategory('Books')">Books</button>
+    <button onclick="filterByCategory('Electronics')">Electronics</button>
+    <button onclick="filterByCategory('Fashion')">Fashion</button>
+    <button onclick="filterByCategory('Stationery')">Stationery</button>
+  </div>
+
+  <div class="products" id="productsGrid">
+    <!-- Sample products will be injected here -->
+  </div>
+
+  <script>
+    // Sample product data
+    const products = [
+      { name: "Textbooks Set", category: "Books", price: "₦4,500", img: "https://images.pexels.com/photos/256541/pexels-photo-256541.jpeg" },
+      { name: "Wireless Earbuds", category: "Electronics", price: "₦8,200", img: "https://images.pexels.com/photos/3394659/pexels-photo-3394659.jpeg" },
+      { name: "Campus T-Shirt", category: "Fashion", price: "₦2,500", img: "https://images.pexels.com/photos/1002644/pexels-photo-1002644.jpeg" },
+      { name: "Writing Tools Kit", category: "Stationery", price: "₦1,200", img: "https://images.pexels.com/photos/1163651/pexels-photo-1163651.jpeg" },
+{ name: "Portable Charger", category: "Electronics", price: "₦3,900", img: "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg" }
+    ];
+
+    const productsGrid = document.getElementById("productsGrid");
+
+    function displayProducts(list) {
+      productsGrid.innerHTML = "";
+      list.forEach(prod => {
+        productsGrid.innerHTML += `
+        <div class="product-card">
+          <img src="prod.img" alt="{prod.name}" />
+          <div class="product-info">
+            <h4>prod.name</h4>
+            <p class="price">{prod.price}</p>
+            <button onclick="alert('Added to cart!')">Add to Cart</button>
+          </div>
+        </div>
+        `;
+      });
+    }
+
+    function filterByCategory(cat) {
+      if (cat === "All") displayProducts(products);
+      else displayProducts(products.filter(p => p.category === cat));
+    }
+
+    function filterProducts() {
+      const term = document.getElementById("searchInput").value.toLowerCase();
+      displayProducts(products.filter(p => p.name.toLowerCase().includes(term)));
+    }
+
+    displayProducts(products); // initial load
+  </script>
+
+</body>
+</html>
